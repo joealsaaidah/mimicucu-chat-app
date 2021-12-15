@@ -1,17 +1,8 @@
-import { Redirect, Route } from "react-router-dom";
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        localStorage.getItem("authToken") ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  );
+import { Navigate } from "react-router-dom";
+
+const PrivateRoute = ({ children, ...rest }) => {
+  const auth = localStorage.getItem("authToken");
+  return auth ? children : <Navigate to='/login' />;
 };
 
 export default PrivateRoute;

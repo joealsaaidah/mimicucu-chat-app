@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./PrivateScreen.css";
+import { useNavigate } from "react-router-dom";
 
 const PrivateScreen = ({ history }) => {
   const [error, setError] = useState("");
   const [privateData, setPrivateData] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("authToken")) {
@@ -30,7 +32,7 @@ const PrivateScreen = ({ history }) => {
 
   const logoutHandler = () => {
     localStorage.removeItem("authToken");
-    history.push("/login");
+    navigate("/login");
   };
 
   return error ? (

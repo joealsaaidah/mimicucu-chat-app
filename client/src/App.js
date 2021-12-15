@@ -1,34 +1,42 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //Routing
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 //Screens
-import PrivateScreen from "./components/screens/PrivateScreen";
-import LoginScreen from "./components/screens/LoginScreen";
-import RegisterScreen from "./components/screens/RegisterScreen";
-import ForgotPasswordScreen from "./components/screens/ForgotPasswordScreen";
-import ResetPasswordScreen from "./components/screens/ResetPasswordScreen";
+import PrivateScreen from "./components/screens/login-screens/PrivateScreen";
+import LoginScreen from "./components/screens/login-screens/LoginScreen";
+import RegisterScreen from "./components/screens/login-screens/RegisterScreen";
+import ForgotPasswordScreen from "./components/screens/login-screens/ForgotPasswordScreen";
+import ResetPasswordScreen from "./components/screens/login-screens/ResetPasswordScreen";
 
 const App = () => {
   return (
     <Router>
-      <div className="app">
-        <Switch>
-          <PrivateRoute exact path="/" component={PrivateScreen} />
-          <Route exact path="/login" component={LoginScreen} />
-          <Route exact path="/register" component={RegisterScreen} />
+      <div className='app'>
+        <Routes>
           <Route
             exact
-            path="/forgotpassword"
-            component={ForgotPasswordScreen}
+            path='/'
+            element={
+              <PrivateRoute>
+                <PrivateScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route exact path='/login' element={<LoginScreen />} />
+          <Route exact path='/register' element={<RegisterScreen />} />
+          <Route
+            exact
+            path='/forgotpassword'
+            element={<ForgotPasswordScreen />}
           />
           <Route
             exact
-            path="/passwordreset/:resetToken"
-            component={ResetPasswordScreen}
+            path='/passwordreset/:resetToken'
+            element={<ResetPasswordScreen />}
           />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );

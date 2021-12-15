@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./ResetPasswordScreen.css";
 
-const ResetPasswordScreen = ({ match }) => {
+const ResetPasswordScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const params = useParams();
 
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ const ResetPasswordScreen = ({ match }) => {
 
     try {
       const { data } = await axios.put(
-        `/api/auth/resetpassword/${match.params.resetToken}`,
+        `/api/auth/resetpassword/${params.resetToken}`,
         {
           password,
         },
@@ -46,43 +48,43 @@ const ResetPasswordScreen = ({ match }) => {
   };
 
   return (
-    <div className="resetpassword-screen">
+    <div className='resetpassword-screen'>
       <form
         onSubmit={resetPasswordHandler}
-        className="resetpassword-screen__form"
+        className='resetpassword-screen__form'
       >
-        <h3 className="resetpassword-screen__title">Reset Password</h3>
-        {error && <span className="error-message">{error} </span>}
+        <h3 className='resetpassword-screen__title'>Reset Password</h3>
+        {error && <span className='error-message'>{error} </span>}
         {success && (
-          <span className="success-message">
-            {success} <Link to="/login">Login</Link>
+          <span className='success-message'>
+            {success} <Link to='/login'>Login</Link>
           </span>
         )}
-        <div className="form-group">
-          <label htmlFor="password">New Password:</label>
+        <div className='form-group'>
+          <label htmlFor='password'>New Password:</label>
           <input
-            type="password"
+            type='password'
             required
-            id="password"
-            placeholder="Enter new password"
-            autoComplete="true"
+            id='password'
+            placeholder='Enter new password'
+            autoComplete='true'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="confirmpassword">Confirm New Password:</label>
+        <div className='form-group'>
+          <label htmlFor='confirmpassword'>Confirm New Password:</label>
           <input
-            type="password"
+            type='password'
             required
-            id="confirmpassword"
-            placeholder="Confirm new password"
-            autoComplete="true"
+            id='confirmpassword'
+            placeholder='Confirm new password'
+            autoComplete='true'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type='submit' className='btn btn-primary'>
           Reset Password
         </button>
       </form>
